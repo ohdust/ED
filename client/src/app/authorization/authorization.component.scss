@@ -1,0 +1,36 @@
+.authorizationContainer{
+    display: flex;
+    justify-content: center;
+    background-color: #666699;
+    padding: 15px;
+    color: #f0f0f5;
+
+    font-size: 20px;
+
+    .authContainer{
+      float: left;
+
+      .inputItem{
+          margin: 0px 10px;
+          height: 35px;
+          font-size: 20px;
+      }
+
+    }
+
+    .btn {
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 20px;
+      border: none;
+
+      &:hover{
+          cursor: pointer;
+          background-color: #8c8cc7;
+          color: #f0f0f5;
+      }
+    }
+
+}
+
+

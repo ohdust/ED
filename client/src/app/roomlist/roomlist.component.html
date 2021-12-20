@@ -1,0 +1,7 @@
+<div class="roomlist">
+  <div class="roomContainer">
+    <div *ngFor="let room of rooms" class="roomsCard">
+      <div class="roomItem" (click)="joinToTheRoom(room.name, room.room_id)">{{room.name}}</div>
+    </div>
+  </div>
+</div>

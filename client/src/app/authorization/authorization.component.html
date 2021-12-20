@@ -1,0 +1,13 @@
+<div class="authorizationContainer">
+    <form (ngSubmit)="doAuth()" class="myForm" [formGroup]="authForm">
+        <div class="authContainer">
+          <label for="login">Login</label>
+          <input formControlName="login" name="login" id="login" type="text" class="inputItem">
+        </div>
+        <div class="authContainer">
+            <label for="password" id="password">Password</label>
+            <input formControlName="password" name="password" type="password" class="inputItem">
+        </div>
+        <button class="btn" type="submit">Submit</button>
+    </form>
+</div>
