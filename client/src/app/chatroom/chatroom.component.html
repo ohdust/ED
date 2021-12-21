@@ -1,31 +1,41 @@
 <div class="chat">
-    <div class="chatContainer">
-      <div class="infoContainer">
-        <div class="userContainer">
-          <div class="user">{{userData.user}}</div>
-          <button class="btn" (click)="logout()">logout</button>
-        </div>
-        <app-roomlist></app-roomlist>
-
+  <div class="chatContainer">
+    <div class="infoContainer">
+      <div class="userContainer">
+        <div class="user">{{userData.user}}</div>
+        <button class="btn" (click)="logout()">logout</button>
       </div>
-
-        <div class="chatCard">
-          <div class="createRoom">
-            <input [(ngModel)]="roomName" type="text" name="roomcreater" class="intput">
-            <button class="RoomCreaterBtn" (click)="createRoom()">Create room</button>
-          </div>
-          <div class="chatMessages">
-            <div *ngFor="let message of messageList" class="message">
-              <div class="chatblock">
-                  <div>{{message.login}}:</div>
-                  <div>{{message.message}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="chatInput">
-            <input [(ngModel)]="newMessage" type="text" class="input" name="message" id="message">
-            <button (click)="sendMessage()" class="btn inputBtn">Send Message</button>
+      <div class="roomlist">
+      <div class="createRoom">
+        <input [(ngModel)]="roomName" type="text" name="roomcreater" class="intput">
+        <button class="RoomCreaterBtn" (click)="createRoom()">Create room</button>
+      </div>
+      <div class="roomContainer">
+        <div *ngFor="let room of rooms" class="roomsCard">
+          <div class="roomItem" (click)="joinToTheRoom(room.name, room.room_id)">
+            {{room.name}}
+            <button (click)="deleteRoom(room.room_id)" class="delete">X</button>
           </div>
         </div>
+      </div>
     </div>
+
+  </div>
+
+  <div class="chatCard">
+
+    <div class="chatMessages">
+      <div *ngFor="let message of messageList" class="message">
+        <div class="chatblock">
+          <div>{{message.login}}:</div>
+          <div>{{message.message}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="chatInput">
+      <input [(ngModel)]="newMessage" type="text" class="input" name="message" id="message">
+      <button (click)="sendMessage()" class="btn inputBtn">Send Message</button>
+    </div>
+  </div>
+</div>
 </div>
