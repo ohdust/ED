@@ -12,14 +12,25 @@ const db = require('../models/db/db');
 //     return response.rows[0];
 // };
 
-const getAllChats = async () => {
+const getAllRooms = async () => {
     const response = await db.query(`
-        SELECT room_id, name, messages, creater_id, closed
+        SELECT room_id, name, creater_id, closed
         FROM chatroom
     ;`);
     if(response.rows.length === 0) throw new Error('no chats found');
     return response.rows;
 };
+
+const getMessages = async (roomId) => {
+    const response = await db.query(`
+        SELECT messages
+        FROM chatroom
+        WHERE id = $1
+    ;`, [roomId]);
+    if(response.rows[0].length === 0) throw new Error(`chat with id: ${roomId} not found`);
+    return response.row[0];
+}; 
+
 
 // const getRoomById = async () => {
 //     const response = await db.query(`
@@ -61,21 +72,33 @@ const getChatsMembers = async (chatId) => {
     return response.rows[0];
 };
 
-const postMessage = async (message) => {
+const postMessage = async (roomId, message) => {
+    const mes = JSON.stringify(message);
     const response = await db.query(`
-        INTSERT INTO chatroom (messages)
-        VALUES($1)
-        WHERE room_id = $2
+        UPDATE chatroom 
+        SET messages = messages || $2::jsonb
+        WHERE room_id = $1
         RETURNING messages
-    ;`, [message, message.roomId]);
-    if(response.rows[0].length === 0) throw new Error('somthing went wrong');
+    ;`, [roomId, mes]);
+    if(!response.rows) throw new Error('somthing went wrong');
     return response.rows[0];
 };
 
+const deleteRoom = async (roomId) => {
+    const response = await db.query(`
+        DELETE FROM chatroom
+        WHERE room_id = $1
+    ;`,[roomId]);
+    if(response.rowCount !== 1) throw new Error('Room not finded');
+    return roomId;
+};
+
 module.exports = {
-    getAllChats,
+    getAllRooms,
+    getMessages,
     createChatroom,
     updateChatStatus,
     getChatsMembers,
     postMessage,
+    deleteRoom,
 };
