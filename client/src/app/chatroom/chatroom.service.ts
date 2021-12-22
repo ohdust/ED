@@ -8,6 +8,7 @@ import { Subject} from 'rxjs';
 import { io } from 'socket.io-client';
 import { IRooms, IMessage } from './message.interface';
 
+
 @Injectable({
     providedIn: 'root'
 })
@@ -16,6 +17,7 @@ export class ChatroomService {
   socket = io('http://localhost:3000');
   message$: Subject<IMessage> = new Subject();
 
+  date = new Date();
   userId:string = '';
   activeRoom:string = '';
   curentRoom:string = '';
@@ -25,7 +27,7 @@ export class ChatroomService {
 
   //send data to the server
   public sendMessage(message:string){
-      this.socket.emit('message', this.activeRoom.toString() , {login: this.logUser.user, message});
+      this.socket.emit('message', this.activeRoom.toString() , {login: this.logUser.user, message, date: this.date});
   }
   // get rooms
   getRooms():Observable<IRooms[]>{
@@ -42,7 +44,7 @@ export class ChatroomService {
   }
 
   //take messages from concrete room
-  getMessagesByRoomId(roomId:string):Observable<string[]>{
+  getMessagesByRoomId(roomId:string):Observable<IMessage[]>{
       const httpOptions = {
           headers: new HttpHeaders({
               "Authorization": `Bearer ${this.token}`,
@@ -50,7 +52,7 @@ export class ChatroomService {
           }),
           withCredentials: true
       };
-      return this.http.post<string[]>(this.chatUrl + 'chat/' + `${roomId}`, roomId, httpOptions).pipe();
+      return this.http.get<IMessage[]>(this.chatUrl + 'chat/' + `${roomId}`, httpOptions).pipe();
   }
 
   createRoom(userId: string, roomName:string):Observable<IRooms>{
@@ -76,7 +78,6 @@ export class ChatroomService {
   public getNewMessage(){
       this.socket.on('message', (message) =>{
           this.message$.next(message);
-          console.log(message);
       });
       return this.message$;
   }

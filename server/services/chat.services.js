@@ -25,10 +25,10 @@ const getMessages = async (roomId) => {
     const response = await db.query(`
         SELECT messages
         FROM chatroom
-        WHERE id = $1
-    ;`, [roomId]);
+        WHERE room_id = $1
+    ;`,[roomId]);
     if(response.rows[0].length === 0) throw new Error(`chat with id: ${roomId} not found`);
-    return response.row[0];
+    return response.rows[0];
 }; 
 
 
@@ -43,7 +43,7 @@ const createChatroom = async (name, user) => {
         INSERT INTO chatroom (name, creater_id)
         VALUES($1, $2)
         RETURNING name, creater_id;
-    `, [name, user]);
+    ;`, [name, user]);
     if(!response.rows[0]) throw new Error('chat not created');
     return response.rows[0];
 };
@@ -93,6 +93,15 @@ const deleteRoom = async (roomId) => {
     return roomId;
 };
 
+const getMessagesCounts = async () => {
+    const response = await db.query(`
+        SELECT jsonb_array_length(messages)
+        FROM chatroom;
+    ;`);
+    if(response.rows.length === 0) throw new Error('messages not found');
+    return response.rows;
+};
+
 module.exports = {
     getAllRooms,
     getMessages,
@@ -101,4 +110,5 @@ module.exports = {
     getChatsMembers,
     postMessage,
     deleteRoom,
+    getMessagesCounts,
 };

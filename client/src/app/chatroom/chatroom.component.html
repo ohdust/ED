@@ -6,29 +6,30 @@
         <button class="btn" (click)="logout()">logout</button>
       </div>
       <div class="roomlist">
-      <div class="createRoom">
-        <input [(ngModel)]="roomName" type="text" name="roomcreater" class="intput">
-        <button class="RoomCreaterBtn" (click)="createRoom()">Create room</button>
-      </div>
-      <div class="roomContainer">
-        <div *ngFor="let room of rooms" class="roomsCard">
-          <div class="roomItem" (click)="joinToTheRoom(room.name, room.room_id)">
-            {{room.name}}
-            <button (click)="deleteRoom(room.room_id)" class="delete">X</button>
+        <div class="createRoom">
+          <input [(ngModel)]="roomName" type="text" name="roomcreater" class="intput">
+          <button class="RoomCreaterBtn" (click)="createRoom()">Create room</button>
+        </div>
+        <div class="roomContainer">
+          <div *ngFor="let room of rooms" class="roomsCard">
+            <div [ngClass]="'roomItem'"
+            (click)="joinToTheRoom(room.name, room.room_id); getMessages(room.room_id)">
+              {{room.name}}
+              <button (click)="deleteRoom(room.room_id)" class="deleteBtn">X</button>
+            </div>
           </div>
         </div>
-      </div>
     </div>
-
   </div>
 
   <div class="chatCard">
-
     <div class="chatMessages">
       <div *ngFor="let message of messageList" class="message">
-        <div class="chatblock">
-          <div>{{message.login}}:</div>
-          <div>{{message.message}}</div>
+        <div [ngClass]="message.login === userData.user ? 'ownMessage' : 'usersMessages'">
+          <div class="user">{{message.login}}:</div>
+          <div>{{message.message}}
+            <div class="date">{{message.date | date:"short"}}</div>
+          </div>
         </div>
       </div>
     </div>

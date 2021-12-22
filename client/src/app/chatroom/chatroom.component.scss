@@ -14,36 +14,146 @@ $size: 25px;
       border-radius: 5px;
       overflow: hidden;
 
-      .userContainer{
-        display: block;
-        padding: 20px 0px 0px 20px;
-        font-size: $size;
-        width: 50px;
+      .infoContainer{
+        width: 160px;
 
-        .btn{
-          padding: 5px;
-          background-color: #990033;
-          border-radius: 6px;
-          color: #ffe6ee;
+        .userContainer{
+          display: block;
+          padding: 20px 0px 0px 20px;
+          font-size: $size;
+          width: 50px;
 
-          &:hover{
-            cursor: pointer;
-            background-color: #4d0019;
+          .btn{
+            padding: 5px;
+            background-color: #990033;
+            border-radius: 6px;
+            color: #ffe6ee;
+
+            &:hover{
+              cursor: pointer;
+              background-color: #4d0019;
+            }
+          }
+        }
+
+        .roomlist{
+          margin-top: 20px;
+          width: 150px;
+
+          .createRoom{
+            padding-left: 5px;
+
+            margin-bottom: 10px;
+
+            .intput{
+              border-radius: 3px;
+              border: none;
+              box-shadow: inset 1px 1px 2px black;
+
+
+              height: 25px;
+              width: 150px;
+
+              font-size: 14pt;
+            }
+
+            .RoomCreaterBtn {
+              width: 150px;
+              height: 25px;
+              margin-top: 4px;
+              background-color: #6600cc;
+              color: #f2e6ff;
+              border: none;
+              border-radius: 3px;
+              box-shadow: 2px 1px 1px #2e015c;
+
+              text-shadow: 1px 1px 1px #2e015c;
+
+              &:hover{
+                cursor: pointer;
+              }
+            }
+          }
+
+          .roomContainer{
+            display: flex;
+            flex-direction: column;
+            background-color: #9d9de4;
+            height: 500px;
+            width: 160px;
+
+            .roomsCard{
+
+              .roomItem{
+                background-color: #e6ccff;
+                border: solid 0.5px #cbc9ce;
+                height: 40px;
+                //width: 150px;
+
+                font-size: 18px;
+                &:hover {
+                  cursor: pointer;
+                }
+
+                .curRoom{
+                  background-color: #bc87ec;
+                  border: solid 0.5px #cbc9ce;
+                  height: 40px;
+                  //width: 150px;
+                  font-size: 18px;
+
+                  &:hover {
+                    cursor: pointer;
+                  }
+                }
+
+                .deleteBtn{
+                  background-color: #990033;
+                  border-radius: 10px;
+                  border:none;
+                  color: #ffe6ee;
+                  float: right;
+                }
+              }
+            }
           }
         }
       }
+
       .chatMessages{
-        margin: 10px 0px 0px 15px;
-        height: 500px;
+        margin-top: 15px;
+        height: 641px;
         width: 515px;
         background-color: #f1eaf5;
         border-radius: 10px;
+        box-shadow: inset 2px 2px 3px #948f96;
 
         overflow: auto;
 
         .message{
+          display: flex;
+          flex-direction: column;
           margin-left: 20px;
+          margin-right: 20px;
           margin-top: 5px;
+
+          border-bottom: 0.1px dashed grey;
+
+          .user{
+            font-weight: bold;
+          }
+
+          .usersMessages{
+            margin-right: auto;
+          }
+
+          .ownMessage{
+            margin-left: auto;
+            margin-right: 10px;
+          }
+          .date{
+            font-size: 15px;
+          }
         }
       }
       .chatInput{

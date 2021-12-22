@@ -4,6 +4,8 @@ export interface IMessage{
   userId: string;
   name: string;
   message:string;
+  messages:string[];
+  date: Date;
 }
 
 export interface IRooms{

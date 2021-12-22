@@ -17,11 +17,10 @@ export class ChatroomComponent implements OnInit {
   rooms:IRooms[] = [];
   roomName:string = '' ;
 
-
+  currentRoom:string = "";
   newMessage: string = '';
   messageList: IMessage[] = [];
 
-  //chatUser:string = '';
   userData:IUserData = {
       user: '',
       userid: ''
@@ -38,6 +37,8 @@ export class ChatroomComponent implements OnInit {
       this.userData.user = localStorage.getItem('login');
       this.userData.userid = this.authService.id;
       this.getAllRooms();
+      this.currentRoom = this.chatservice.activeRoom;
+
       //this string create stream
       this.chatservice.getNewMessage().subscribe(
           (message) => {
@@ -45,10 +46,6 @@ export class ChatroomComponent implements OnInit {
               this.messageList.push(message);
           }
       );
-  }
-
-  useRoomCreater(){
-
   }
 
   sendMessage(){
@@ -64,8 +61,6 @@ export class ChatroomComponent implements OnInit {
   }
 
   joinToTheRoom(name:string, roomId:string){
-      console.log(roomId);
-    //console.log(`join to the ${name} with id: ${roomId}`);
       this.chatservice.activeRoom = roomId;
       this.chatservice.joinTheRoom(name,roomId);
   }
@@ -74,14 +69,15 @@ export class ChatroomComponent implements OnInit {
       this.chatservice.getRooms().subscribe(
           res => {
               this.rooms = res;
-              console.log(this.rooms);
           }
       );
   }
 
   getMessages(roomId:string){
       this.chatservice.getMessagesByRoomId(roomId).subscribe(
-
+          res => {
+              this.messageList = res;
+          }
       );
   }
 
