@@ -10,6 +10,8 @@ const express = require('express'),
             methods: ["GET", "POST"]
         }
     });
+const { addMessage } = require('../controller/chat.controller');
+
    
 io.on('connection', (socket) => {
     console.log(`client connected`);
@@ -24,7 +26,8 @@ io.on('connection', (socket) => {
             message:`message:a user: ${login} joined the ${name}`});
     });
     
-    socket.on('message', (roomId, message) =>{
+    socket.on('message', async (roomId, message) =>{
+        await addMessage(roomId, message);
         io.to(roomId).emit('message', message);
     });
 
