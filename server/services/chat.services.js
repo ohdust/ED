@@ -42,7 +42,7 @@ const createChatroom = async (name, user) => {
     const response = await db.query(`
         INSERT INTO chatroom (name, creater_id)
         VALUES($1, $2)
-        RETURNING name, creater_id;
+        RETURNING name, creater_id, room_id;
     ;`, [name, user]);
     if(!response.rows[0]) throw new Error('chat not created');
     return response.rows[0];
@@ -102,6 +102,14 @@ const getMessagesCounts = async () => {
     return response.rows;
 };
 
+const deleteMessage = async () => {
+    const messages = await db.query(`
+        select messages -> 'newUser' as login
+        from chatroom;
+    `);
+    return messages.rows;
+};
+
 module.exports = {
     getAllRooms,
     getMessages,
@@ -111,4 +119,5 @@ module.exports = {
     postMessage,
     deleteRoom,
     getMessagesCounts,
+    deleteMessage,
 };

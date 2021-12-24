@@ -7,6 +7,7 @@ import { Subject} from 'rxjs';
 
 import { io } from 'socket.io-client';
 import { IRooms, IMessage } from './message.interface';
+import { v4 as uuid } from 'uuid';
 
 
 @Injectable({
@@ -17,6 +18,7 @@ export class ChatroomService {
   socket = io('http://localhost:3000');
   message$: Subject<IMessage> = new Subject();
 
+  userUid = uuid();
   date = new Date();
   userId:string = '';
   activeRoom:string = '';
@@ -27,7 +29,7 @@ export class ChatroomService {
 
   //send data to the server
   public sendMessage(message:string){
-      this.socket.emit('message', this.activeRoom.toString() , {login: this.logUser.user, message, date: this.date});
+      this.socket.emit('message', this.activeRoom.toString() ,  {id: this.userUid, login: this.logUser.user, message, date: this.date});
   }
   // get rooms
   getRooms():Observable<IRooms[]>{
@@ -84,7 +86,6 @@ export class ChatroomService {
 
   //delete room by id
   deleteRoomById(roomId:string):Observable<string>{
-      console.log(roomId);
       const token = localStorage.getItem("token");
       const httpOptions = {
           headers: new HttpHeaders({
@@ -94,6 +95,6 @@ export class ChatroomService {
           withCredentials: true
       };
       return this.http.delete<string>(
-          this.chatUrl + 'chat/' + 'delete/' +`${roomId}`,httpOptions);
+          this.chatUrl + 'chat/' +`${roomId}`,httpOptions);
   }
 }

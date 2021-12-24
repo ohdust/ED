@@ -86,6 +86,7 @@ export class ChatroomComponent implements OnInit {
           this.preloader.isLoading = true;
           this.chatservice.createRoom(this.userData.userid, this.roomName).subscribe((res) =>{
               this.rooms.push(res);
+              this.chatservice.activeRoom = res.room_id;
               this.preloader.isLoading = false;
           });
       }
