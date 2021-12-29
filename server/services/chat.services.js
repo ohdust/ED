@@ -14,7 +14,7 @@ const db = require('../models/db/db');
 
 const getAllRooms = async () => {
     const response = await db.query(`
-        SELECT room_id, name, creater_id, closed
+        SELECT room_id, name, creater_id, closed, jsonb_array_length(messages) AS mescount
         FROM chatroom
     ;`);
     if(response.rows.length === 0) throw new Error('no chats found');
@@ -31,13 +31,6 @@ const getMessages = async (roomId) => {
     return response.rows[0];
 }; 
 
-
-// const getRoomById = async () => {
-//     const response = await db.query(`
-//     SELECT 
-//     `);
-// };
-
 const createChatroom = async (name, user) => {
     const response = await db.query(`
         INSERT INTO chatroom (name, creater_id)
@@ -48,16 +41,14 @@ const createChatroom = async (name, user) => {
     return response.rows[0];
 };
 
-
-const updateChatStatus = async (status, id) => {
+const updateChatStatus = async (roomId) => {
     const response = await db.query(`
         UPDATE chatroom
         SET closed = $1
-        WHERE id = $2
-        RETURNING closed;
-    `, [status, id]);
-    if(!response.rows[0]) throw new Error('messsage not exist');
-    return response.rows[0];
+        WHERE room_id = $2
+    `, [true, roomId]);
+    if(!response.rowCount !==1) throw new Error('chat not exist');
+    return {message:'done'};
 };
 
 const getChatsMembers = async (chatId) => {
@@ -95,7 +86,7 @@ const deleteRoom = async (roomId) => {
 
 const getMessagesCounts = async () => {
     const response = await db.query(`
-        SELECT jsonb_array_length(messages)
+        SELECT jsonb_array_length(messages), room_id
         FROM chatroom;
     ;`);
     if(response.rows.length === 0) throw new Error('messages not found');

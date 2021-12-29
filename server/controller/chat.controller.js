@@ -6,7 +6,6 @@ const {
     getChatsMembers,
     postMessage,
     deleteRoom,
-    getMessagesCounts,
     deleteMessage,
 
 } = require('../services/chat.services');
@@ -42,12 +41,12 @@ const createChat = async (req, res) => {
     }
 };
 
-const changeChatstatus = async (req, res) => {
-    const {closed, room_id} = req.body;
+const changeChatStatus = async (req, res) => {
+    const roomId = req.params?.roomId;
 
     try {
-        const chatLock = await updateChatStatus(closed, room_id);
-        res.status(200).send(chatLock);
+        const chatLock = await updateChatStatus(roomId);
+        res.status(20).send(chatLock);
     } catch(e) {
         res.status(404).send(`${e}`);
     }
@@ -82,15 +81,6 @@ const deleteRoomById = async (req, res) => {
     }
 };
 
-const getMesCounts = async (req, res) => {
-    try{
-        const counts = await getMessagesCounts();
-        res.status(200).send(counts);
-    } catch(e) {
-        res.status(404).send(`${e}`);
-    }
-};
-
 const deleteMessageById = async (req, res) => {
     const messageId = req.params?.messId;
     try{
@@ -105,10 +95,9 @@ module.exports = {
     getRooms,
     getMessagesByRoomId,
     createChat,
-    changeChatstatus,
+    changeChatStatus,
     getChatMembersByChatId,
     addMessage,
     deleteRoomById,
-    getMesCounts,
     deleteMessageById,  
 };
