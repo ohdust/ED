@@ -18,7 +18,7 @@ export class ChatroomService {
   socket = io('http://localhost:3000');
   message$: Subject<IMessage> = new Subject();
 
-  userUid = uuid();
+
   date = new Date();
   userId:string = '';
   activeRoom:string = '';
@@ -29,8 +29,10 @@ export class ChatroomService {
 
   //send data to the server
   public sendMessage(message:string){
-      this.socket.emit('message', this.activeRoom.toString() ,  {id: this.userUid, login: this.logUser.user, message, date: this.date});
+      const messageUid = uuid();
+      this.socket.emit('message', this.activeRoom.toString() ,  {messageid: messageUid, login: this.logUser.user, message, date: this.date});
   }
+
   // get rooms
   getRooms():Observable<IRooms[]>{
       const token = localStorage.getItem("token");
@@ -57,6 +59,7 @@ export class ChatroomService {
       return this.http.get<IMessage[]>(this.chatUrl + 'chat/' + `${roomId}`, httpOptions).pipe();
   }
 
+  //create new chat room
   createRoom(userId: string, roomName:string):Observable<IRooms>{
       const data = {name: roomName,user_id: userId};
       const httpOptions = {
@@ -76,7 +79,7 @@ export class ChatroomService {
       });
   }
 
-  //Get new Messages use socket
+  //Get new Messages use socket.io
   public getNewMessage(){
       this.socket.on('message', (message) =>{
           this.message$.next(message);
@@ -97,4 +100,18 @@ export class ChatroomService {
       return this.http.delete<string>(
           this.chatUrl + 'chat/' +`${roomId}`,httpOptions);
   }
+
+  deleteMessageById(messageId:string):Observable<string>{
+      const token = localStorage.getItem("token");
+      const httpOptions = {
+          headers: new HttpHeaders({
+              "Authorization": `Bearer ${token}`,
+              'Content-Type': "application/json"
+          }),
+          withCredentials: true
+      };
+      return this.http.delete<string>(
+          this.chatUrl + 'chat/' + 'messages/' + `${messageId}`, httpOptions);
+  }
 }
+

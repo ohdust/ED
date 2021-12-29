@@ -1,35 +1,55 @@
 .authorizationContainer{
-    display: flex;
-    justify-content: center;
     background-color: #666699;
     padding: 15px;
     color: #f0f0f5;
 
     font-size: 20px;
 
-    .authContainer{
-      float: left;
+    .myForm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-      .inputItem{
-          margin: 0px 10px;
-          height: 35px;
-          font-size: 20px;
+      .authContainer{
+        float: left;
+
+        .inputItem{
+            margin: 0px 10px;
+            height: 35px;
+            font-size: 20px;
+            border-radius: 5px;
+        }
       }
 
-    }
+      .btn {
+        margin: 5px;
+        width: 274px;
+        height: 35px;
+        border-radius: 5px;
+        font-size: 20px;
+        border: none;
+        background-color: #9494b8;
 
-    .btn {
-      padding: 5px;
-      border-radius: 5px;
-      font-size: 20px;
-      border: none;
-
-      &:hover{
-          cursor: pointer;
-          background-color: #8c8cc7;
-          color: #f0f0f5;
+        &:hover{
+            cursor: pointer;
+            background-color: #8c8cc7;
+            color: #f0f0f5;
+        }
       }
-    }
+      .navDiv{
+
+        .navText{
+          color: #610c9c;
+          text-shadow: 1px 1px 2px #b058ee;
+
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+  }
+
+
 
 }
 

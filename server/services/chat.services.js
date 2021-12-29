@@ -102,12 +102,20 @@ const getMessagesCounts = async () => {
     return response.rows;
 };
 
-const deleteMessage = async () => {
-    const messages = await db.query(`
-        select messages -> 'newUser' as login
-        from chatroom;
-    `);
-    return messages.rows;
+const deleteMessage = async (messId) => {
+    const response = await db.query(`
+        WITH mes as (SELECT position -1 AS indx
+            FROM chatroom,
+            jsonb_array_elements(messages) 
+            WITH ORDINALITY arr(elem, position)
+            WHERE elem->>'messageid' = $1
+        )
+        UPDATE chatroom
+        SET messages = messages - mes.indx::int
+        FROM mes
+    ;`, [messId]);
+    if(response.rowCount === 0) throw new Error('messages not found');
+    return response;
 };
 
 module.exports = {

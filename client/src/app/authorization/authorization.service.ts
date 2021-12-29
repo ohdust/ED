@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-//import { io } from 'socket.io-client';
 
 
 interface IUser {
@@ -22,7 +21,6 @@ interface IAuth {
 })
 export class AuthorizationService {
     private authUrl = 'http://localhost:3000/';
-    //socket = io('http://localhost:3000');
 
     user:string | null  = '';
     id: string = '';

@@ -69,4 +69,8 @@ export class AuthorizationComponent implements OnInit {
         }
         this.requestStatus.isLoading = false;
     }
+
+    navigateRegistartion(){
+        this.router.navigate(['/registration']);
+    }
 }

@@ -7,7 +7,7 @@ const {
     createChat, 
     deleteRoomById, 
     getMessagesByRoomId,
-    delMes 
+    deleteMessageById,
 } = require('../controller/chat.controller');
 
 router.post('/registration', doRegistration);
@@ -19,8 +19,8 @@ router.get('/chat/:id', authenticateToken, getMessagesByRoomId);
 router.post('/chat', authenticateToken, createChat);
 router.delete('/chat/:roomId', authenticateToken, deleteRoomById);
 
-router.get('/del', delMes);
-//router.post('`/chat', authenticateToken, addMessage);
+router.delete('/chat/messages/:messId', authenticateToken, deleteMessageById);
+
 
 
 module.exports = router;

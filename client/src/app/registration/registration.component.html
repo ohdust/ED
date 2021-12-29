@@ -1,0 +1,18 @@
+<div class="registration">
+
+  <form (ngSubmit)="doRegistration()" class="myForm" [formGroup]="registrationForm">
+    <div class="regTitle">Input login and password</div>
+    <div class="regContainer">
+      <label for="login">Login<br></label>
+      <input formControlName="login" name="login" id="login" type="text" class="inputItem">
+    </div>
+    <div class="regContainer">
+        <label for="password" id="password">Password<br></label>
+        <input formControlName="password" name="password" type="password" class="inputItem">
+    </div>
+    <button class="btn" type="submit">Registration</button>
+    <div class="navDiv">Have account? <span (click)="navigateLogIn()"
+      class="navText">Back to logIn</span>
+    </div>
+  </form>
+</div>

@@ -91,11 +91,10 @@ const getMesCounts = async (req, res) => {
     }
 };
 
-const delMes = async (req, res) => {
-    const {message} = req.body;
-    
+const deleteMessageById = async (req, res) => {
+    const messageId = req.params?.messId;
     try{
-        const mes = await deleteMessage(message);
+        const mes = await deleteMessage(messageId);
         res.status(204).send(mes);
     } catch(e) {
         res.status(204).send(`${e}`);
@@ -111,5 +110,5 @@ module.exports = {
     addMessage,
     deleteRoomById,
     getMesCounts,
-    delMes,  
+    deleteMessageById,  
 };

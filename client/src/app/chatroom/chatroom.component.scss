@@ -106,14 +106,6 @@ $size: 25px;
                     cursor: pointer;
                   }
                 }
-
-                .deleteBtn{
-                  background-color: #990033;
-                  border-radius: 10px;
-                  border:none;
-                  color: #ffe6ee;
-                  float: right;
-                }
               }
             }
           }
@@ -168,6 +160,29 @@ $size: 25px;
 
       .chatCard{
         display: block;
+      }
+    }
+
+    .deleteBtn{
+      background-color: #990033;
+      border-radius: 10px;
+      border:none;
+      color: #ffe6ee;
+      float: right;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .chatInput{
+
+      .input{
+        border-radius: 5px;
+        border: none;
+        box-shadow: inset 1px 1px 2px black;
+        margin: 5px;
+        padding: 5px;
       }
     }
 }

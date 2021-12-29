@@ -103,4 +103,14 @@ export class ChatroomComponent implements OnInit {
       }
   }
 
+  deleteMessage(messageId:string){
+      if(confirm("Are you sure?")){
+          if(this.preloader.isLoading === false){
+              this.preloader.isLoading = true;
+              this.chatservice.deleteMessageById(messageId).subscribe();
+          }
+          this.messageList = this.messageList.filter((message) => message.messageid !== messageId);
+          this.preloader.isLoading = false;
+      }
+  }
 }

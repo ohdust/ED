@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { PreloaderComponent } from './preloader/preloader.component';
 import { RoomlistComponent } from './roomlist/roomlist.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { RoomlistComponent } from './roomlist/roomlist.component';
     ChatroomComponent,
     PreloaderComponent,
     RoomlistComponent,
+    RegistrationComponent,
     ],
     imports: [
     BrowserModule,
