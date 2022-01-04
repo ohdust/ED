@@ -36,7 +36,6 @@ export class ChatroomComponent implements OnInit {
       this.userData.user = localStorage.getItem('login');
       this.userData.userid = this.authService.id;
       this.getAllRooms();
-      //this.currentRoom = this.chatservice.activeRoom;
 
       //this string create stream
       this.chatservice.getNewMessage().subscribe(

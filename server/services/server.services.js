@@ -11,7 +11,7 @@ const express = require('express'),
         }
     });
 const { addMessage } = require('../controller/chat.controller');
-
+const validator = require('../middleware/dataValidator');
    
 io.on('connection', (socket) => {
     console.log(`client connected`);
@@ -27,6 +27,7 @@ io.on('connection', (socket) => {
     });
     
     socket.on('message', async (roomId, message) =>{
+        if(validator.isString(roomId, message) === false) throw new Error('data not a string');
         await addMessage(roomId, message);
         io.to(roomId).emit('message', message);
     });

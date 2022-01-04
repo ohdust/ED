@@ -11,7 +11,7 @@ const {
     deleteRoomById, 
     getMessagesByRoomId,
     deleteMessageById,
-    changeChatStatus,
+    changeRoomStatus,
 } = require('../controller/chat.controller');
 
 router.post('/registration', doRegistration);
@@ -21,7 +21,7 @@ router.get('/auth',authenticateToken, authentification);
 router.get('/chat', authenticateToken, getRooms);
 router.get('/chat/:id', authenticateToken, getMessagesByRoomId);
 router.post('/chat', authenticateToken, createChat);
-router.delete('/chat/status/:roomId', authenticateToken, changeChatStatus);
+router.delete('/chat/status/:roomId', authenticateToken, changeRoomStatus);
 router.delete('/chat/:roomId', authenticateToken, deleteRoomById);
 
 //router.get('/chat/messages', authenticateToken, getMesCounts);

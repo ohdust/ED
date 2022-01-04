@@ -32,6 +32,7 @@ export class ChatroomService {
   //send data to the server
   public sendMessage(message:string){
       const messageUid = uuid();
+      JSON.stringify(message);
       this.socket.emit('message', this.activeRoom.roomId.toString() ,  {messageid: messageUid, login: this.logUser.user, message, date: this.date});
   }
 
