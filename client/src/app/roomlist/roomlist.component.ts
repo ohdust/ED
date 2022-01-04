@@ -30,7 +30,7 @@ export class RoomlistComponent implements OnInit {
     joinToTheRoom(name:string, roomId:string){
         console.log(roomId);
         //console.log(`join to the ${name} with id: ${roomId}`);
-        this.chServ.activeRoom = roomId;
+        this.chServ.activeRoom.roomId = roomId;
         this.chServ.joinTheRoom(name,roomId);
     }
 
@@ -45,7 +45,7 @@ export class RoomlistComponent implements OnInit {
 
     getMessages(roomId:string){
         this.chServ.getMessagesByRoomId(roomId).subscribe(
-          
+
         );
     }
 

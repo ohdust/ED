@@ -6,7 +6,7 @@ $size: 25px;
 
     .chatContainer{
       display: flex;
-      background-color: #dfdfe5;
+      background-color: #c4c4eb;
       height: 750px;
       width: 700px;
       margin-top: 20px;
@@ -15,7 +15,7 @@ $size: 25px;
       overflow: hidden;
 
       .infoContainer{
-        width: 160px;
+        width: 170px;
 
         .userContainer{
           display: block;
@@ -76,18 +76,24 @@ $size: 25px;
           }
 
           .roomContainer{
-            display: flex;
-            flex-direction: column;
-            background-color: #9d9de4;
             height: 500px;
-            width: 160px;
+            width: 170px;
+
 
             .roomsCard{
+              display: flex;
+              align-items: center;
+              background-color: #e6ccff;
+              border: solid 0.5px #cbc9ce;
 
               .roomItem{
+                display: flex;
+                align-items: center;
                 background-color: #e6ccff;
-                border: solid 0.5px #cbc9ce;
+                flex-grow: 3;
+                overflow: hidden;
                 height: 40px;
+                padding-left: 5px;
                 //width: 150px;
 
                 font-size: 18px;
@@ -107,13 +113,28 @@ $size: 25px;
                   }
                 }
               }
+
+              .roomInfoBlock{
+                display: flex;
+                justify-content: flex-end;
+                //float:right;
+
+                .messageCount{
+                  margin-left: 15px;
+                  padding: 0px 3px;
+                  background-color: #f2e6ff;
+                  box-shadow: inset 1px 1px 2px;
+
+                 //float: right;
+                }
+              }
             }
           }
         }
       }
 
       .chatMessages{
-        margin-top: 15px;
+        margin-top: 45px;
         height: 641px;
         width: 515px;
         background-color: #f1eaf5;
@@ -130,6 +151,10 @@ $size: 25px;
           margin-top: 5px;
 
           border-bottom: 0.1px dashed grey;
+
+          .userMessage {
+            font-size: 20px;
+          }
 
           .user{
             font-weight: bold;
@@ -163,12 +188,23 @@ $size: 25px;
       }
     }
 
+    .closeBtn{
+      background-color: #ffff99;
+      border-radius: 5px;
+      border:none;
+      margin-left: 3px;
+
+      &:hover{
+        cursor: pointer;
+      }
+
+    }
+
     .deleteBtn{
       background-color: #990033;
-      border-radius: 10px;
+      border-radius: 5px;
       border:none;
       color: #ffe6ee;
-      float: right;
 
       &:hover {
         cursor: pointer;
@@ -178,11 +214,26 @@ $size: 25px;
     .chatInput{
 
       .input{
+        width: 405px;
         border-radius: 5px;
         border: none;
         box-shadow: inset 1px 1px 2px black;
         margin: 5px;
         padding: 5px;
+      }
+    }
+
+
+
+    .inputBtn{
+      background-color: #e6ccff;
+      border-radius: 5px;
+      padding: 4px;
+
+      &:hover{
+        cursor: pointer;
+        background-color: #a594b6;
+        color:#f1eaf5;
       }
     }
 }

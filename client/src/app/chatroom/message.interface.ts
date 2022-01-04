@@ -14,7 +14,8 @@ export interface IRooms{
   name: string;
   messages:string;
   closed: boolean;
-  createrid:string;
+  creater_id:string;
+  mescount:string;
 }
 
 export interface IUserData{

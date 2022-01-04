@@ -10,7 +10,6 @@ import { AuthorizationComponent } from './authorization/authorization.component'
 import { HeaderComponent } from './header/header.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { PreloaderComponent } from './preloader/preloader.component';
-import { RoomlistComponent } from './roomlist/roomlist.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 
@@ -21,7 +20,6 @@ import { RegistrationComponent } from './registration/registration.component';
     HeaderComponent,
     ChatroomComponent,
     PreloaderComponent,
-    RoomlistComponent,
     RegistrationComponent,
     ],
     imports: [

@@ -13,9 +13,15 @@
         <div class="roomContainer">
           <div *ngFor="let room of rooms" class="roomsCard">
             <div [ngClass]="'roomItem'"
-            (click)="joinToTheRoom(room.name, room.room_id); getMessages(room.room_id)">
-              {{room.name}}
-              <button (click)="deleteRoom(room.room_id)" class="deleteBtn">X</button>
+            (click)="joinToTheRoom(room.name, room.room_id, room.closed); getMessages(room.room_id)">
+              <div class="roomName">{{room.name}}</div>
+            </div>
+            <div class="roomInfoBlock">
+              <div class="messageCount">{{room.mescount}}
+              </div>
+              <button *ngIf="room.closed === false" (click)="closeRoom(room.room_id, room.creater_id)" class="closeBtn">L</button>
+              <button (click)="deleteRoom(room.room_id)"
+                  class="deleteBtn">X</button>
             </div>
           </div>
         </div>
@@ -29,15 +35,16 @@
           <div class="user">{{message.login}}:
             <button *ngIf="message.login !== 'bot'" (click)="deleteMessage(message.messageid)" class="deleteBtn">X</button>
           </div>
-          <div>{{message.message}}
+          <div>
+            <div class="userMessage">{{message.message}}</div>
             <div class="date">{{message.date | date:"short"}}</div>
           </div>
         </div>
       </div>
     </div>
     <div class="chatInput">
-      <input [(ngModel)]="newMessage" type="text" class="input" name="message" id="message">
-      <button (click)="sendMessage()" class="btn inputBtn">Send Message</button>
+      <input [(ngModel)]="newMessage" type="text" class="input" name="message" id="message" (keyup.enter)="sendMessage()">
+      <button type="submit" (click)="sendMessage()"  class="btn inputBtn">Send Message</button>
     </div>
   </div>
 </div>

@@ -18,11 +18,13 @@ export class ChatroomService {
   socket = io('http://localhost:3000');
   message$: Subject<IMessage> = new Subject();
 
-
   date = new Date();
   userId:string = '';
-  activeRoom:string = '';
-  curentRoom:string = '';
+  activeRoom = {
+      roomId: '',
+      status: false
+  };
+  // curentRoom:string = '';
   token = localStorage.getItem('token');
 
   constructor(private http: HttpClient, public logUser: AuthorizationService) { }
@@ -30,7 +32,7 @@ export class ChatroomService {
   //send data to the server
   public sendMessage(message:string){
       const messageUid = uuid();
-      this.socket.emit('message', this.activeRoom.toString() ,  {messageid: messageUid, login: this.logUser.user, message, date: this.date});
+      this.socket.emit('message', this.activeRoom.roomId.toString() ,  {messageid: messageUid, login: this.logUser.user, message, date: this.date});
   }
 
   // get rooms
@@ -101,6 +103,7 @@ export class ChatroomService {
           this.chatUrl + 'chat/' +`${roomId}`,httpOptions);
   }
 
+  //delete message by id
   deleteMessageById(messageId:string):Observable<string>{
       const token = localStorage.getItem("token");
       const httpOptions = {
@@ -112,6 +115,32 @@ export class ChatroomService {
       };
       return this.http.delete<string>(
           this.chatUrl + 'chat/' + 'messages/' + `${messageId}`, httpOptions);
+  }
+
+  //get messages count
+  getMessagesCount():Observable<string[]>{
+      const token = localStorage.getItem("token");
+      const httpOptions = {
+          headers: new HttpHeaders({
+              "Authorization": `Bearer ${token}`,
+              'Content-Type': "application/json"
+          }),
+          withCredentials: true
+      };
+      return this.http.get<string[]>(this.chatUrl + 'chat/' + 'messages', httpOptions);
+  }
+
+  closeRoomById(roomId:string):Observable<string>{
+      //const room = {room: roomId};
+      const token = localStorage.getItem("token");
+      const httpOptions = {
+          headers: new HttpHeaders({
+              "Authorization": `Bearer ${token}`,
+              'Content-Type': "application/json"
+          }),
+          withCredentials: true
+      };
+      return this.http.delete<string>(this.chatUrl + 'chat/' + 'status/' + `${roomId}`, httpOptions);
   }
 }
 

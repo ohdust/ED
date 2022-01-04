@@ -17,7 +17,6 @@ export class ChatroomComponent implements OnInit {
   rooms:IRooms[] = [];
   roomName:string = '' ;
 
-  currentRoom:string = "";
   newMessage: string = '';
   messageList: IMessage[] = [];
 
@@ -37,7 +36,7 @@ export class ChatroomComponent implements OnInit {
       this.userData.user = localStorage.getItem('login');
       this.userData.userid = this.authService.id;
       this.getAllRooms();
-      this.currentRoom = this.chatservice.activeRoom;
+      //this.currentRoom = this.chatservice.activeRoom;
 
       //this string create stream
       this.chatservice.getNewMessage().subscribe(
@@ -49,10 +48,10 @@ export class ChatroomComponent implements OnInit {
   }
 
   sendMessage(){
-      if(this.newMessage.length === 0) return;
+      if(this.newMessage.length === 0 || this.chatservice.activeRoom.status === true) return;
       this.chatservice.sendMessage(this.newMessage);
       this.newMessage = '';
-      console.log(this.messageList);
+      this.getAllRooms();
   }
 
   logout(){
@@ -60,8 +59,9 @@ export class ChatroomComponent implements OnInit {
       this.router.navigate(['/login']);
   }
 
-  joinToTheRoom(name:string, roomId:string){
-      this.chatservice.activeRoom = roomId;
+  joinToTheRoom(name:string, roomId:string, status:boolean){
+      this.chatservice.activeRoom.roomId = roomId;
+      this.chatservice.activeRoom.status = status;
       this.chatservice.joinTheRoom(name,roomId);
   }
 
@@ -86,7 +86,8 @@ export class ChatroomComponent implements OnInit {
           this.preloader.isLoading = true;
           this.chatservice.createRoom(this.userData.userid, this.roomName).subscribe((res) =>{
               this.rooms.push(res);
-              this.chatservice.activeRoom = res.room_id;
+              this.chatservice.activeRoom.roomId = res.room_id;
+              this.getAllRooms();
               this.preloader.isLoading = false;
           });
       }
@@ -111,6 +112,18 @@ export class ChatroomComponent implements OnInit {
           }
           this.messageList = this.messageList.filter((message) => message.messageid !== messageId);
           this.preloader.isLoading = false;
+      }
+  }
+
+  closeRoom(roomId:string, createrId:string){
+      if(createrId !== this.userData.userid) return;
+      if(confirm("are you sure?")){
+          if(this.preloader.isLoading === false){
+              this.preloader.isLoading = true;
+              this.chatservice.closeRoomById(roomId).subscribe(
+                  ()=> this.preloader.isLoading === false
+              );
+          }
       }
   }
 }
