@@ -14,9 +14,12 @@ import { IMessage, IUserData, IRooms } from './message.interface';
 })
 
 export class ChatroomComponent implements OnInit {
+
+  //@ViewChild('message')
   rooms:IRooms[] = [];
   roomName:string = '' ;
-
+  currentRoomName = "";
+  error = false;
   newMessage: string = '';
   messageList: IMessage[] = [];
 
@@ -36,6 +39,7 @@ export class ChatroomComponent implements OnInit {
       this.userData.user = localStorage.getItem('login');
       this.userData.userid = this.authService.id;
       this.getAllRooms();
+     // this.scrollBotom();
 
       //this string create stream
       this.chatservice.getNewMessage().subscribe(
@@ -45,6 +49,10 @@ export class ChatroomComponent implements OnInit {
           }
       );
   }
+
+  // ngAfterViewChecked(){
+
+  // }
 
   sendMessage(){
       if(this.newMessage.length === 0 || this.chatservice.activeRoom.status === true) return;
@@ -61,6 +69,8 @@ export class ChatroomComponent implements OnInit {
   joinToTheRoom(name:string, roomId:string, status:boolean){
       this.chatservice.activeRoom.roomId = roomId;
       this.chatservice.activeRoom.status = status;
+      this.chatservice.activeRoom.name = name;
+      this.currentRoomName = name;
       this.chatservice.joinTheRoom(name,roomId);
   }
 
@@ -81,10 +91,12 @@ export class ChatroomComponent implements OnInit {
   }
 
   createRoom(){
+      if(this.roomName === '') return;
       if(this.preloader.isLoading === false) {
           this.preloader.isLoading = true;
           this.chatservice.createRoom(this.userData.userid, this.roomName).subscribe((res) =>{
               this.rooms.push(res);
+              this.roomName = '';
               this.chatservice.activeRoom.roomId = res.room_id;
               this.getAllRooms();
               this.preloader.isLoading = false;
@@ -125,4 +137,8 @@ export class ChatroomComponent implements OnInit {
           }
       }
   }
+
+  // scrollBotom(){
+  //     this.myDiv.nativeElement.scrollTop = this.myDiv.nativeElement.scrollHeight;
+  // }
 }

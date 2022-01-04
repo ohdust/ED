@@ -11,24 +11,15 @@ function passwordValidator (req, res, next) {
 
 function isEpty (req, res, next) {
     const body = req.body;
-    if(Object.keys(body).length === 0 || body === null || body === undefined) {
+    if(Object.values(body).length === 0 || body === null || body === undefined || body.name === '') {
         const err = new Error('data is empty');
-        next(err);
-    }
-    next();
-}
-
-function isId(req, res, next){
-    const body = req.params.id;
-    if(body === null || body === undefined){
-        const err = new Error('data is empty');
-        next(err);
+        res.status(400).send({message: 'data is empty'});
+        next(`${err}`);
     }
     next();
 }
 
 function isString(roomId, message){
-    //let err = new Error('key not a string type');
     if(typeof roomId !== "string") return(false);
     for(let key in message ){
         if(typeof message[key] !== "string"){
@@ -41,6 +32,5 @@ function isString(roomId, message){
 module.exports = {
     passwordValidator,
     isEpty,
-    isId,
     isString
 };

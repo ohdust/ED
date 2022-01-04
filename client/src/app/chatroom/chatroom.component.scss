@@ -8,14 +8,14 @@ $size: 25px;
       display: flex;
       background-color: #c4c4eb;
       height: 750px;
-      width: 700px;
+      width: 765px;
       margin-top: 20px;
       box-shadow: 10px 5px 5px rgb(91, 74, 112);
       border-radius: 5px;
       overflow: hidden;
 
       .infoContainer{
-        width: 170px;
+        width: 200px;
 
         .userContainer{
           display: block;
@@ -37,12 +37,15 @@ $size: 25px;
         }
 
         .roomlist{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           margin-top: 20px;
-          width: 150px;
+          width: 200px;
 
           .createRoom{
-            padding-left: 5px;
-
+            padding-left: 15px;
+            margin-top: 30px;
             margin-bottom: 10px;
 
             .intput{
@@ -76,20 +79,25 @@ $size: 25px;
           }
 
           .roomContainer{
+            display: flex;
+            flex-direction: column;
             height: 500px;
             width: 170px;
+            margin-top: 30px;
+            overflow: auto;
+            background-color: #f1eaf5;
+            border-radius: 6px;
+            box-shadow: inset 1px 1px 2px #a87171;
 
 
             .roomsCard{
               display: flex;
               align-items: center;
-              background-color: #e6ccff;
-              border: solid 0.5px #cbc9ce;
+              border-bottom: solid 0.5px #cbc9ce;
 
               .roomItem{
                 display: flex;
                 align-items: center;
-                background-color: #e6ccff;
                 flex-grow: 3;
                 overflow: hidden;
                 height: 40px;
@@ -134,7 +142,7 @@ $size: 25px;
       }
 
       .chatMessages{
-        margin-top: 45px;
+        margin-top: 6px;
         height: 641px;
         width: 515px;
         background-color: #f1eaf5;
@@ -153,7 +161,7 @@ $size: 25px;
           border-bottom: 0.1px dashed grey;
 
           .userMessage {
-            font-size: 20px;
+            font-size: 22px;
           }
 
           .user{
@@ -185,6 +193,25 @@ $size: 25px;
 
       .chatCard{
         display: block;
+
+        .currentRoomInfo{
+          margin: 0 auto;
+          //background-color: #6600cc;
+
+          .roomTitile{
+            text-shadow: 1px 1px 2px #7e7ea3;
+          }
+
+          .currentRoomName{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 25px;
+            box-shadow: inset 1px 1px 2px #7e7ea3;
+            background-color: #f1eaf5;
+            border-radius: 6px;
+          }
+        }
       }
     }
 
@@ -197,7 +224,6 @@ $size: 25px;
       &:hover{
         cursor: pointer;
       }
-
     }
 
     .deleteBtn{
@@ -222,8 +248,6 @@ $size: 25px;
         padding: 5px;
       }
     }
-
-
 
     .inputBtn{
       background-color: #e6ccff;

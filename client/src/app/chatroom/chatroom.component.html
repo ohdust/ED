@@ -29,6 +29,10 @@
   </div>
 
   <div class="chatCard">
+    <div class="currentRoomInfo">
+      <div class="roomTitile">Current room:</div>
+      <div class="currentRoomName">{{currentRoomName}}</div>
+    </div>
     <div class="chatMessages">
       <div *ngFor="let message of messageList" class="message">
         <div [ngClass]="message.login === userData.user ? 'ownMessage' : 'usersMessages'">

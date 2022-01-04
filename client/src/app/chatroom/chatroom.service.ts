@@ -22,6 +22,7 @@ export class ChatroomService {
   userId:string = '';
   activeRoom = {
       roomId: '',
+      name: "",
       status: false
   };
   // curentRoom:string = '';
