@@ -16,6 +16,7 @@ interface IUser {
 interface IAuth {
   login:string;
   token:string;
+  userid: string;
 }
 
 @Injectable({
@@ -25,7 +26,7 @@ export class AuthorizationService {
     private authUrl = environment.authUrl;
 
     user:string | null  = '';
-    id: string = '';
+    userId: string = '';
     token:string = '';
     authError = false;
 
@@ -59,6 +60,7 @@ export class AuthorizationService {
           map(res => {
               this.token = res.token;
               this.user = res.login;
+              this.userId = res.userid;
               localStorage.setItem('token', this.token);
               localStorage.setItem('login', this.user );
           }),
@@ -81,8 +83,9 @@ export class AuthorizationService {
         return this.http.get<IUserData>(this.authUrl + "auth", httpOptions)
             .pipe(
                 map(res => {
+
                     this.user = res.user;
-                    this.id = res.userid;
+                    this.userId = res.userid;
                 }),
             );
     }

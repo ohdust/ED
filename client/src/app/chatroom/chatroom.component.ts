@@ -37,7 +37,7 @@ export class ChatroomComponent implements OnInit {
 
   ngOnInit(): void {
       this.userData.user = localStorage.getItem('login');
-      this.userData.userid = this.authService.id;
+      this.userData.userid = this.authService.userId;
       this.getAllRooms();
 
       //this string create stream
@@ -92,7 +92,7 @@ export class ChatroomComponent implements OnInit {
       }
       if(this.preloader.isLoading === false) {
           this.preloader.isLoading = true;
-          this.chatservice.createRoom(this.userData.userid, this.roomName).subscribe((res) =>{
+          this.chatservice.createRoom(this.roomName).subscribe((res) =>{
               this.rooms.push(res);
               this.roomName = '';
               this.error = false;

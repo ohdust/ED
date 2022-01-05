@@ -66,8 +66,9 @@ export class ChatroomService {
   }
 
   //create new chat room
-  createRoom(userId: string, roomName:string):Observable<IRooms>{
-      const data = {name: roomName,user_id: userId};
+  createRoom(roomName:string):Observable<IRooms>{
+      const data = {name: roomName,user_id: this.logUser.userId};
+      console.log(data);
       const httpOptions = {
           headers: new HttpHeaders({
               "Authorization": `Bearer ${this.token}`,
