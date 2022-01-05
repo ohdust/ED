@@ -4,9 +4,9 @@
 
 export const environment = {
     production: false,
-    authUrl: "http://localhost:3000/",
-    socketUrl: "http://localhost:3000",
-    chatUrl: "http://localhost:3000/chat"
+    authUrl: "http://dcodeit.net:3004/",
+    socketUrl: "http://dcodeit.net:3004",
+    chatUrl: "http://dcodeit.net:3004/chat"
 };
 
 /*
