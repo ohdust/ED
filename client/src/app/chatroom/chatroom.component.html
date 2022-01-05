@@ -10,6 +10,7 @@
           <input [(ngModel)]="roomName" type="text" name="roomcreater" class="intput">
           <button class="RoomCreaterBtn" (click)="createRoom()">Create room</button>
         </div>
+        <div *ngIf="error === true" class="createRoomError">room name to short</div>
         <div class="roomContainer">
           <div *ngFor="let room of rooms" class="roomsCard">
             <div [ngClass]="'roomItem'"

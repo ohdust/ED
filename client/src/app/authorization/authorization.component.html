@@ -9,6 +9,7 @@
             <input formControlName="password" name="password" type="password" class="inputItem">
         </div>
         <button class="btn" type="submit">Confirm</button>
+        <div *ngIf="authorization.authError" class="inputError">Wrong login or password</div>
         <div class="navDiv">Don't have an account? <span (click)="navigateRegistartion()"
           class="navText">Create a chat account</span>
         </div>

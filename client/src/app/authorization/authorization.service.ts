@@ -25,6 +25,7 @@ export class AuthorizationService {
     user:string | null  = '';
     id: string = '';
     token:string = '';
+    authError = false;
 
 
     constructor(private http: HttpClient) { }
@@ -60,6 +61,7 @@ export class AuthorizationService {
               localStorage.setItem('login', this.user );
           }),
           catchError(err => {
+              this.authError = true;
               return throwError(err);
           })
       );

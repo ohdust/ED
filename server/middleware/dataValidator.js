@@ -19,6 +19,16 @@ function isEpty (req, res, next) {
     next();
 }
 
+function minLength (req, res, next) {
+    const {login, password} = req.body;
+    if(login.length < 5 || password.length < 5){
+        const err = new Error('minimal length error');
+        res.status(400).send({message:"invalid input data"});
+        next(err);
+    }
+    next();
+}
+
 function isString(roomId, message){
     if(typeof roomId !== "string") return(false);
     for(let key in message ){
@@ -32,5 +42,6 @@ function isString(roomId, message){
 module.exports = {
     passwordValidator,
     isEpty,
-    isString
+    isString,
+    minLength
 };

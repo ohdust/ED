@@ -17,18 +17,19 @@ export class RegistrationComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   })
 
-  get fnc(){return this.registrationForm.controls;}
-
   constructor(
     private regService: RegistrationService,
     private preloader: PreloaderComponent,
     private router: Router
   ) { }
 
+  get fnc(){return this.registrationForm.controls;}
+
   ngOnInit(): void {
   }
 
   doRegistration(){
+      if(this.fnc.login.errors?.['minlength']) return;
       if(this.preloader.isLoading === false){
           this.preloader.isLoading = true;
           this.regService.registration(this.registrationForm.value).subscribe(

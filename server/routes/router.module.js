@@ -15,7 +15,7 @@ const {
     changeRoomStatus,
 } = require('../controller/chat.controller');
 
-router.post('/registration', doRegistration);
+router.post('/registration', validator.minLength, doRegistration);
 router.post(`/authorize`, authorization);
 router.get('/auth',authenticateToken, authentification);
 
