@@ -13,17 +13,21 @@
         <div *ngIf="error === true" class="createRoomError">room name to short</div>
         <div class="roomContainer">
           <div *ngFor="let room of rooms" class="roomsCard">
-            <div [ngClass]="'roomItem'"
-            (click)="joinToTheRoom(room.name, room.room_id, room.closed); getMessages(room.room_id)">
+            <div *ngIf="room.closed === false" class="roomItem">
+              <div [ngClass]="'roomItem'"
+              (click)="joinToTheRoom(room.name, room.room_id, room.closed); getMessages(room.room_id)">
               <div class="roomName">{{room.name}}</div>
             </div>
-            <div class="roomInfoBlock">
+
+            <div class="roomInfoBlock" >
               <div class="messageCount">{{room.mescount}}
               </div>
-              <button *ngIf="room.closed === false" (click)="closeRoom(room.room_id, room.creater_id)" class="closeBtn">L</button>
+              <button *ngIf="room.closed === false || room.creater_id === userData.userid" (click)="closeRoom(room.room_id, room.creater_id)" class="closeBtn">L</button>
               <button (click)="deleteRoom(room.room_id)"
                   class="deleteBtn">X</button>
+              </div>
             </div>
+
           </div>
         </div>
     </div>

@@ -29,19 +29,6 @@ export class AuthorizationComponent implements OnInit {
         this.auth();
     }
 
-    addUser(){
-        if(this.requestStatus.isLoading === false){
-            this.requestStatus.isLoading = true;
-            this.authorization.createUser(this.authForm.value)
-            .subscribe(
-                () => {
-                    this.requestStatus.isLoading = false;
-                }
-            );
-        }
-        return;
-    }
-
     doAuth(){
         if(this.requestStatus.isLoading === false){
             this.requestStatus.isLoading = true;
@@ -49,6 +36,7 @@ export class AuthorizationComponent implements OnInit {
             .subscribe(
                 () => {
                     this.router.navigate(['/chat']);
+                    this.authorization.authError = false;
                     this.requestStatus.isLoading = false;
                 }
             );

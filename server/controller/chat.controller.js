@@ -2,7 +2,7 @@ const {
     getAllRooms,
     getMessages, 
     createChatroom, 
-    updateChatStatus, 
+    updateRoomStatus, 
     getChatsMembers,
     postMessage,
     deleteRoom,
@@ -43,10 +43,9 @@ const createChat = async (req, res) => {
 };
 
 const changeRoomStatus = async (req, res) => {
-    const roomId = req.params?.roomId;
-
+    const { roomId } = req.body;
     try {
-        const chatLock = await updateChatStatus(postgresRep, roomId);
+        const chatLock = await updateRoomStatus(postgresRep, roomId);
         res.status(20).send(chatLock);
     } catch(e) {
         res.status(404).send(`${e}`);

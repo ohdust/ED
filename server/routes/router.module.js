@@ -22,10 +22,9 @@ router.get('/auth',authenticateToken, authentification);
 router.get('/chat', authenticateToken, getRooms);
 router.get('/chat/:id', authenticateToken, getMessagesByRoomId);
 router.post('/chat', authenticateToken, validator.isEpty, createChat);
-router.delete('/chat/status/:roomId',  authenticateToken, changeRoomStatus);
+router.put('/chat/status', authenticateToken, changeRoomStatus);
 router.delete('/chat/:roomId', authenticateToken, deleteRoomById);
 
-//router.get('/chat/messages', authenticateToken, getMesCounts);
 router.delete('/chat/messages/:messId', authenticateToken, deleteMessageById);
 
 

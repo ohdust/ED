@@ -1,9 +1,11 @@
+import { environment } from './../../environments/environment';
 import { IUserData } from './../chatroom/message.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+
 
 
 interface IUser {
@@ -20,7 +22,7 @@ interface IAuth {
     providedIn: 'root'
 })
 export class AuthorizationService {
-    private authUrl = 'http://localhost:3000/';
+    private authUrl = environment.authUrl;
 
     user:string | null  = '';
     id: string = '';

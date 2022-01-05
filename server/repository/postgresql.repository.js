@@ -25,8 +25,8 @@ const updateRoom = async (roomId) => {
         UPDATE chatroom
         SET closed = $1
         WHERE room_id = $2
-    `, [true, roomId]);
-    if(!response.rowCount !==1) throw new Error('chat not exist');
+    ;`, [true, roomId]);
+    if(response.rowCount !==1) throw new Error('chat not exist');
     return {message:'done'};
 };
 

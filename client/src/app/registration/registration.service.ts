@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { IUser } from './registration.interfaces';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class RegistrationService {
 
     constructor(private http:HttpClient) { }
 
-    registrationUrl = 'http://localhost:3000/registration'
+    registrationUrl = environment.authUrl;
 
     registration(user:IUser):Observable<IUser>{
         const httpOptions = {

@@ -9,13 +9,15 @@ import { io } from 'socket.io-client';
 import { IRooms, IMessage } from './message.interface';
 import { v4 as uuid } from 'uuid';
 
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class ChatroomService {
-  chatUrl = 'http://localhost:3000/';
-  socket = io('http://localhost:3000');
+  chatUrl = environment.chatUrl;
+  socket = io(environment.socketUrl);
   message$: Subject<IMessage> = new Subject();
 
   date = new Date();
@@ -47,7 +49,7 @@ export class ChatroomService {
           }),
           withCredentials: true
       };
-      return this.http.get<IRooms[]>(this.chatUrl + 'chat/',httpOptions)
+      return this.http.get<IRooms[]>(this.chatUrl, httpOptions)
           .pipe();
   }
 
@@ -60,7 +62,7 @@ export class ChatroomService {
           }),
           withCredentials: true
       };
-      return this.http.get<IMessage[]>(this.chatUrl + 'chat/' + `${roomId}`, httpOptions).pipe();
+      return this.http.get<IMessage[]>(this.chatUrl + `/${roomId}`, httpOptions).pipe();
   }
 
   //create new chat room
@@ -73,7 +75,7 @@ export class ChatroomService {
           }),
           withCredentials: true
       };
-      return this.http.post<IRooms>(this.chatUrl + 'chat', data, httpOptions).pipe();
+      return this.http.post<IRooms>(this.chatUrl, data, httpOptions).pipe();
   }
 
   // join you to a room after click on the room
@@ -102,7 +104,7 @@ export class ChatroomService {
           withCredentials: true
       };
       return this.http.delete<string>(
-          this.chatUrl + 'chat/' +`${roomId}`,httpOptions);
+          this.chatUrl +`/${roomId}`,httpOptions);
   }
 
   //delete message by id
@@ -116,7 +118,7 @@ export class ChatroomService {
           withCredentials: true
       };
       return this.http.delete<string>(
-          this.chatUrl + 'chat/' + 'messages/' + `${messageId}`, httpOptions);
+          this.chatUrl + '/messages/' + `${messageId}`, httpOptions);
   }
 
   //get messages count
@@ -129,11 +131,11 @@ export class ChatroomService {
           }),
           withCredentials: true
       };
-      return this.http.get<string[]>(this.chatUrl + 'chat/' + 'messages', httpOptions);
+      return this.http.get<string[]>(this.chatUrl + '/messages', httpOptions);
   }
 
   closeRoomById(roomId:string):Observable<string>{
-      //const room = {room: roomId};
+      const room = {roomId: roomId};
       const token = localStorage.getItem("token");
       const httpOptions = {
           headers: new HttpHeaders({
@@ -142,7 +144,8 @@ export class ChatroomService {
           }),
           withCredentials: true
       };
-      return this.http.delete<string>(this.chatUrl + 'chat/' + 'status/' + `${roomId}`, httpOptions);
+      console.log(httpOptions);
+      return this.http.put<string>(this.chatUrl + '/status', room, httpOptions).pipe();
   }
 }
 
