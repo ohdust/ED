@@ -22,6 +22,6 @@ export class RegistrationService {
             }),
             withCredentials: true
         };
-        return this.http.post<IUser>(this.registrationUrl, user, httpOptions).pipe();
+        return this.http.post<IUser>(this.registrationUrl  + 'registration', user, httpOptions).pipe();
     }
 }
