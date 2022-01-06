@@ -15,7 +15,6 @@ import { IMessage, IUserData, IRooms } from './message.interface';
 
 export class ChatroomComponent implements OnInit {
 
-  //@ViewChild('message')
   rooms:IRooms[] = [];
   roomName:string = '' ;
   currentRoomName = "";
@@ -37,7 +36,7 @@ export class ChatroomComponent implements OnInit {
 
   ngOnInit(): void {
       this.userData.user = localStorage.getItem('login');
-      this.userData.userid = this.authService.userId;
+      this.userData.userid = this.authService.userId; //need a fix because don't render lock button
       this.getAllRooms();
 
       //this string create stream
@@ -131,13 +130,12 @@ export class ChatroomComponent implements OnInit {
           if(this.preloader.isLoading === false){
               this.preloader.isLoading = true;
               this.chatservice.closeRoomById(roomId).subscribe(
-                  ()=> this.preloader.isLoading === false
+                  ()=> {
+                      this.preloader.isLoading === false;
+                      this.rooms = this.rooms.filter((room) => room.room_id !== roomId);
+                  }
               );
           }
       }
   }
-
-  // scrollBotom(){
-  //     this.myDiv.nativeElement.scrollTop = this.myDiv.nativeElement.scrollHeight;
-  // }
 }

@@ -6,8 +6,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-
-
 interface IUser {
   login:string;
   password: string;
