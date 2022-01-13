@@ -2,8 +2,8 @@ const getAllRooms = async (repository) => {
     return repository.getAllRooms();
 };
 
-const createChatroom = async (repository, name, user) => {
-    return repository.createRoom(name, user);   
+const createChatroom = async (repository, name, userId) => {
+    return repository.createRoom(name, userId);   
 };
 
 const updateRoomStatus = async (repository, roomId) => {

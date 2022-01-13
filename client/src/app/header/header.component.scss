@@ -1,0 +1,41 @@
+.header-container{
+  display: flex;
+  align-items: center;
+  background-color: #666699;
+  height: 50px;
+  color: white;
+
+  .user-img{
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 15px;
+    margin-right: 10px;
+    align-items: center;
+  }
+
+
+  .user-container{
+    display: flex;
+    float: left;
+    margin-left: 40px;
+    align-items: center;
+
+    .user{
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+
+  .btn {
+    color: #e97272;
+    border: none;
+    background: none;
+    font-weight: bold;
+    text-decoration: underline;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+};

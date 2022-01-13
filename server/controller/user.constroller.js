@@ -4,7 +4,7 @@ const doRegistration = async (req , res) => {
     const {login, password} = req.body;
     try {
         const user = await userRegistration(login, password);
-        res.status(200).json(user);
+        res.status(201).json(user);
     } catch(e) {
         res.status(400).send(`${e}`);
     }

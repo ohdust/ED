@@ -25,9 +25,10 @@ export class ChatroomService {
   activeRoom = {
       roomId: '',
       name: "",
-      status: false
+      status: false,
+      createrId: ""
   };
-  // curentRoom:string = '';
+
   token = localStorage.getItem('token');
 
   constructor(private http: HttpClient, public logUser: AuthorizationService) { }
@@ -36,7 +37,7 @@ export class ChatroomService {
   public sendMessage(message:string){
       const messageUid = uuid();
       JSON.stringify(message);
-      this.socket.emit('message', this.activeRoom.roomId.toString() ,  {messageid: messageUid, login: this.logUser.user, message, date: this.date});
+      this.socket.emit('message', this.activeRoom.roomId.toString() , {messageid: messageUid, userId: this.logUser.userId, login: this.logUser.user, message, date: this.date});
   }
 
   // get rooms
@@ -68,7 +69,6 @@ export class ChatroomService {
   //create new chat room
   createRoom(roomName:string):Observable<IRooms>{
       const data = {name: roomName,user_id: this.logUser.userId};
-      console.log(data);
       const httpOptions = {
           headers: new HttpHeaders({
               "Authorization": `Bearer ${this.token}`,
@@ -145,7 +145,6 @@ export class ChatroomService {
           }),
           withCredentials: true
       };
-      console.log(httpOptions);
       return this.http.put<string>(this.chatUrl + '/status', room, httpOptions).pipe();
   }
 }

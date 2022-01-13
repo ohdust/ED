@@ -36,9 +36,9 @@ const createChat = async (req, res) => {
     const {name, user_id} = req.body;
     try {
         const chat = await createChatroom(postgresRep, name, user_id);
-        return res.status(200).send(chat);
+        return res.status(201).send(chat);
     } catch(e) {
-        res.status(500).json(`${e}`);
+        res.status(400).json(`${e}`);
     }
 };
 
@@ -46,9 +46,9 @@ const changeRoomStatus = async (req, res) => {
     const { roomId } = req.body;
     try {
         const chatLock = await updateRoomStatus(postgresRep, roomId);
-        res.status(20).send(chatLock);
+        res.status(201).send(chatLock);
     } catch(e) {
-        res.status(404).send(`${e}`);
+        res.status(422).send(`${e}`);
     }
 };
 
@@ -58,7 +58,7 @@ const deleteRoomById = async (req, res) => {
         await deleteRoom(postgresRep, room_id);
         res.status(204).send(`room ${room_id} deleted`);
     } catch(e) {
-        res.status(404).send(`${e}`);
+        res.status(422).send(`${e}`);
     }
 };
 
@@ -87,7 +87,7 @@ const deleteMessageById = async (req, res) => {
         const mes = await deleteMessage(postgresRep, messageId);
         res.status(204).send(mes);
     } catch(e) {
-        res.status(204).send(`${e}`);
+        res.status(422).send(`${e}`);
     }
 };
 

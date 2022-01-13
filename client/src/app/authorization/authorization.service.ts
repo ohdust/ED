@@ -81,7 +81,6 @@ export class AuthorizationService {
         return this.http.get<IUserData>(this.authUrl + "auth", httpOptions)
             .pipe(
                 map(res => {
-
                     this.user = res.user;
                     this.userId = res.userid;
                 }),
