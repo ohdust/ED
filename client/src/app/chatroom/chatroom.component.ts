@@ -38,8 +38,9 @@ export class ChatroomComponent implements OnInit {
   roomName:string = '' ;
   currentRoomName = "";
   error = false;
-  confirm = false;
+  closeRoomConfirm = false;
   showCreatorPopup = false;
+  deleteMessageButtons = false;
   newMessage: string = '';
   messageList: IMessage[] = [];
 
@@ -140,29 +141,26 @@ export class ChatroomComponent implements OnInit {
   }
 
   deleteMessage(messageId:string){
-      if(confirm("Are you sure?")){
-          if(this.preloader.isLoading === false){
-              this.preloader.isLoading = true;
-              this.chatservice.deleteMessageById(messageId).subscribe();
-          }
-          this.messageList = this.messageList.filter((message) => message.messageid !== messageId);
-          this.preloader.isLoading = false;
+      if(this.preloader.isLoading === false){
+          this.preloader.isLoading = true;
+          this.chatservice.deleteMessageById(messageId).subscribe();
       }
+      this.messageList = this.messageList.filter((message) => message.messageid !== messageId);
+      this.preloader.isLoading = false;
   }
 
   closeRoom(roomId:string, createrId:string){
       if(createrId !== this.userData.userid) return;
-      if(confirm("are you sure?")){
-          if(this.preloader.isLoading === false){
-              this.preloader.isLoading = true;
-              this.chatservice.closeRoomById(roomId).subscribe(
-                  ()=> {
-                      this.preloader.isLoading === false;
-                      this.rooms = this.rooms.filter((room) => room.room_id !== roomId);
-                  }
-              );
-          }
+      if(this.preloader.isLoading === false){
+          this.preloader.isLoading = true;
+          this.chatservice.closeRoomById(roomId).subscribe(
+              ()=> {
+                  this.preloader.isLoading === false;
+                  this.rooms = this.rooms.filter((room) => room.room_id !== roomId);
+              }
+          );
       }
+
   }
 
   showCreatePopUpMenu(){
@@ -171,5 +169,6 @@ export class ChatroomComponent implements OnInit {
 
   closeCreatePopUpMenu(){
       this.showCreatorPopup = false;
+      this.error = false;
   }
 }

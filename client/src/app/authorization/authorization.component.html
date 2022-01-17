@@ -1,17 +1,17 @@
-<div class="authorizationContainer">
-    <form (ngSubmit)="doAuth()" class="myForm" [formGroup]="authForm">
-        <div class="authContainer">
+<div class="authorization-container">
+    <form (ngSubmit)="doAuth()" class="my-form" [formGroup]="authForm">
+        <div class="auth-container">
           <label for="login">Login<br></label>
-          <input formControlName="login" name="login" id="login" type="text" class="inputItem">
+          <input formControlName="login" name="login" id="login" type="text" class="input-item">
         </div>
-        <div class="authContainer">
+        <div class="auth-container">
             <label for="password" id="password">Password<br></label>
-            <input formControlName="password" name="password" type="password" class="inputItem">
+            <input formControlName="password" name="password" type="password" class="input-item">
         </div>
         <button class="btn" type="submit">Confirm</button>
-        <div *ngIf="authorization.authError" class="inputError">Wrong login or password</div>
-        <div class="navDiv">Don't have an account? <span (click)="navigateRegistartion()"
-          class="navText">Create a chat account</span>
+        <div *ngIf="authorization.authError" class="input-error">Wrong login or password</div>
+        <div class="nav-div">Don't have an account? <span (click)="navigateRegistartion()"
+          class="nav-text">Create a chat account</span>
         </div>
     </form>
 

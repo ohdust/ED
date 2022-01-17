@@ -1,32 +1,32 @@
 <app-header></app-header>
 <div class="chat">
 
-  <div class="infoContainer">
+  <div class="info-container">
     <div class="roomlist">
-      <div class="createRoom">
+      <div class="create-room">
         <div *ngIf="showCreatorPopup === true" class="create-room-modal">
           <div class="modal-content">
             <div class="title">Imput chat name</div>
             <input [(ngModel)]="roomName" type="text" name="roomcreater" class="intput">
-            <div *ngIf="error === true" class="createRoomError">a room name minimun 2 and maximum 20 characters</div>
+            <div *ngIf="error === true" class="create-room-error">a room name minimun 2 and maximum 20 characters</div>
             <button class="room-creater-btn" (click)="createRoom()">Add chat</button>
             <button class="btn-quit" (click)="closeCreatePopUpMenu()">Close</button>
           </div>
 
         </div>
-        <button class="RoomCreaterBtn" (click)="showCreatePopUpMenu()">+ Add chat</button>
+        <button class="room-creater-btn" (click)="showCreatePopUpMenu()">+ Add chat</button>
       </div>
 
-      <div class="roomContainer">
-        <div *ngFor="let room of rooms" class="roomsCard">
-          <div *ngIf="room.closed === false" [ngClass]="this.currentRoomName === room.name ? 'curRoom' : 'roomItem'">
-            <div class="roomItem"
+      <div class="room-container">
+        <div *ngFor="let room of rooms" class="rooms-card">
+          <div *ngIf="room.closed === false" [ngClass]="this.currentRoomName === room.name ? 'cur-room' : 'room-item'">
+            <div class="room-item"
               (click)="joinToTheRoom(room.name, room.room_id, room.closed, room.creater_id); getMessages(room.room_id)">
-              <div class="roomName">{{room.name}}</div>
+              <div class="room-name">{{room.name}}</div>
             </div>
 
-            <div class="roomInfoBlock">
-              <div class="messageCount">{{room.mescount}}</div>
+            <div class="room-info-block">
+              <div class="message-count">{{room.mescount}}</div>
             </div>
           </div>
 
@@ -34,30 +34,35 @@
       </div>
     </div>
   </div>
-  <div class="chatContainer">
-
-
-    <div class="chatCard">
-      <div class="currentRoomInfo">
-        <div class="currentRoomName">{{currentRoomName}}</div>
-        <div class="roomButtons">
+  <div class="chat-container">
+    <div class="chat-card">
+      <div class="current-room-info">
+        <div class="current-room-name">{{currentRoomName}}</div>
+        <div class="room-buttons">
           <button *ngIf="this.activeRoom.status === false && activeRoom.createrId == userData.userid && currentRoomName !== ''"
-          (click)="closeRoom(this.activeRoom.roomId , this.activeRoom.createrId)" class="closeBtn">close</button>
-          <button *ngIf="this.activeRoom.createrId == userData.userid && currentRoomName !== ''" (click)="deleteRoom(this.activeRoom.roomId)" class="deleteBtn">delete</button>
+          (click)="closeRoom(this.activeRoom.roomId , this.activeRoom.createrId)" class="close-btn">close</button>
+          <button *ngIf="this.activeRoom.createrId == userData.userid && currentRoomName !== ''" (click)="deleteRoom(this.activeRoom.roomId)" class="delete-btn">delete</button>
         </div>
 
       </div>
-      <div class="chatMessages">
-        <div class="messagesBlock">
+      <div class="chat-messages">
+        <div class="messages-block">
           <div *ngFor="let message of messageList" class="message" [@simpleFadeAnimation]="'in:leave'">
-
-            <div [ngClass]="message.login === userData.user ? 'ownMessage' : 'usersMessages'">
+            <div [ngClass]="message.login === userData.user ? 'own-message' : 'users-messages'">
               <div class="user">{{message.login}}:
-                <button *ngIf="message.login !== 'bot' && message.userId === userData.userid" (click)="deleteMessage(message.messageid)"
-                  class="deleteBtn">X</button>
+                <button *ngIf="message.login !== 'bot' &&
+                message.userId == userData.userid &&
+                !message.show" (click)="message.show = true"
+                  class="delete-btn">X</button>
+                  <div class="message-buttons" *ngIf="message.show">
+                    <button class="submit-message-delete-btn" (click)="deleteMessage(message.messageid)">
+                      <img src="../../assets/tick.png" alt="tick" class="submit-icon">
+                    </button>
+                    <button class="delete-btn" (click)="message.show = false">X</button>
+                  </div>
               </div>
               <div>
-                <div class="userMessage">{{message.message}}</div>
+                <div class="user-message">{{message.message}}</div>
                 <div class="date">{{message.date | date:"short"}}</div>
               </div>
             </div>
@@ -65,10 +70,10 @@
         </div>
 
       </div>
-      <div class="chatInput">
+      <div class="chat-input">
         <input [(ngModel)]="newMessage" type="text" class="input" name="message" id="message"
           (keyup.enter)="sendMessage()">
-        <div><button type="submit" (click)="sendMessage()" class="btn inputBtn">Send Message</button></div>
+        <div><button type="submit" (click)="sendMessage()" class="btn input-btn">Send Message</button></div>
       </div>
     </div>
   </div>

@@ -3,15 +3,14 @@ $size: 25px;
 .chat{
     display: flex;
     justify-content: center;
-    //width: 1500px;
 
-    .infoContainer{
+    .info-container{
       width: 270px;
       min-width: 270px;
       background-color: white;
       border-right: 0.2px solid #eee9e9;
 
-      .userContainer{
+      .user-container{
         display: block;
         padding: 20px 0px 0px 20px;
         font-size: $size;
@@ -31,13 +30,11 @@ $size: 25px;
       }
 
       .roomlist{
-        //display: flex;
         flex-direction: column;
         align-items: center;
         margin-top: 20px;
-        //width: 200px;
 
-        .createRoom{
+        .create-room{
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -51,6 +48,7 @@ $size: 25px;
             box-shadow: inset 1px 1px 2px black;
             background-color: #eee9e9;
             outline: none;
+            margin-bottom: 5px;
 
             height: 25px;
             width: 235px;
@@ -58,7 +56,7 @@ $size: 25px;
             font-size: 14pt;
           }
 
-          .RoomCreaterBtn{
+          .room-creater-btn{
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -81,16 +79,16 @@ $size: 25px;
           }
         }
 
-        .roomContainer{
+        .room-container{
           display: flex;
           flex-direction: column;
           overflow: auto;
 
-          .roomsCard{
+          .rooms-card{
             display: flex;
             align-items: center;
 
-            .roomItem{
+            .room-item{
               display: flex;
               align-items: center;
               flex-grow: 3;
@@ -105,7 +103,7 @@ $size: 25px;
                 cursor: pointer;
               }
             }
-              .curRoom{
+              .cur-room{
                 background-color: #e7ccff;
                 display: flex;
                 align-items: center;
@@ -122,11 +120,11 @@ $size: 25px;
                 }
               }
 
-            .roomInfoBlock{
+            .room-info-block{
               display: flex;
               justify-content: flex-end;
 
-              .messageCount{
+              .message-count{
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -144,23 +142,42 @@ $size: 25px;
       }
     }
 
-    .chatContainer{
+    .chat-container{
       background-color: #c4c4eb;
       overflow: hidden;
       overflow: hidden;
 
-      .chatMessages{
+      .chat-messages{
         margin-top: 6px;
         height: 641px;
         border-radius: 10px;
 
         overflow-y: scroll;
 
-        .messagesBlock{
+        .messages-block{
           display: flex;
           flex-direction: column;
           align-items: center;
           width: 850px;
+
+          .message-buttons{
+            float: right;
+
+            .submit-message-delete-btn{
+              background: none;
+              border: none;
+
+              .submit-icon{
+                width: 16px;
+                height: 16px;
+                background: none;
+              }
+
+              &:hover{
+                cursor: pointer;
+              }
+            }
+          }
 
         }
 
@@ -170,7 +187,7 @@ $size: 25px;
           margin-top: 5px;
           border-radius: 10px;
 
-          .userMessage {
+          .user-message {
             font-size: 22px;
           }
 
@@ -178,7 +195,7 @@ $size: 25px;
             font-weight: bold;
           }
 
-          .usersMessages{
+          .users-messages{
             margin-right: auto;
             margin-right: 10px;
             box-shadow: 0 1px 6px rgb(0 0 0 / 12%), 0 1px 4px rgb(0 0 0 / 24%);
@@ -190,9 +207,8 @@ $size: 25px;
             word-wrap: break-word
           }
 
-          .ownMessage{
+          .own-message{
             margin-left: auto;
-            //margin-right: 10px;
             box-shadow: 0 1px 6px rgb(0 0 0 / 12%), 0 1px 4px rgb(0 0 0 / 24%);
             background-color: white;
             border-radius: 10px 10px 0px 10px;
@@ -204,30 +220,30 @@ $size: 25px;
           }
         }
       }
-      .chatInput{
+      .chat-input{
         display:flex;
         justify-content: center;
         align-items: center;
         height: 50px;
       }
 
-      .chatCard{
+      .chat-card{
         display: block;
 
-        .currentRoomInfo{
+        .current-room-info{
           height: 80px;
           background-color: white;
 
-          .roomButtons{
+          .room-buttons{
             display: flex;
             padding: 15px;
           }
 
-          .roomTitile{
+          .room-titile{
             text-shadow: 1px 1px 2px #7e7ea3;
           }
 
-          .currentRoomName{
+          .current-room-name{
             display: flex;
             padding-top: 10px;
             padding-left: 25px;
@@ -241,7 +257,7 @@ $size: 25px;
       }
     }
 
-    .closeBtn{
+    .close-btn{
       background: none;
       color: #666699;
       border:none;
@@ -258,7 +274,7 @@ $size: 25px;
       }
     }
 
-    .deleteBtn{
+    .delete-btn{
       background: none;
       color: #990033;
       border:none;
@@ -272,7 +288,7 @@ $size: 25px;
       }
     }
 
-    .chatInput{
+    .chat-input{
 
       .input{
         width: 450px;
@@ -286,7 +302,7 @@ $size: 25px;
       }
     }
 
-    .inputBtn{
+    .input-btn{
         background-color: #6600cc;
         border-radius: 5px;
         padding: 4px;
@@ -301,15 +317,14 @@ $size: 25px;
       }
     }
 
-    .createRoom{
+    .create-room{
       display: block;
       height: 50px;
   }
 
-  .createRoomError{
+  .create-room-error{
     color:#990033;
     text-align: center;
-    //text-shadow: 2px 1px 2px #e07699;
   }
 
   .create-room-modal{
@@ -333,6 +348,12 @@ $size: 25px;
       width: 42%;
       animation-name: animatetop;
       animation-duration: 0.4s;
+
+      .title{
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
     }
 
     .room-creater-btn{

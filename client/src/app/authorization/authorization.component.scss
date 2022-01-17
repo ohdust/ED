@@ -1,16 +1,16 @@
-.authorizationContainer{
+.authorization-container{
     background-color: #666699;
     padding: 15px;
     color: #f0f0f5;
 
     font-size: 20px;
 
-    .myForm {
+    .my-form {
       display: flex;
       flex-direction: column;
       align-items: center;
 
-      .inputError{
+      .input-error{
         color: #c88484;
         text-shadow: 2px 1px 2px #ec3d3d;
         border-bottom: 0.5px #ec3d3d;
@@ -18,10 +18,10 @@
         text-decoration: underline;
       }
 
-      .authContainer{
+      .auth-container{
         float: left;
 
-        .inputItem{
+        .input-item{
             margin: 0px 10px;
             height: 35px;
             font-size: 20px;
@@ -46,9 +46,9 @@
             color: #f0f0f5;
         }
       }
-      .navDiv{
+      .nav-div{
 
-        .navText{
+        .nav-text{
           color: #610c9c;
           text-shadow: 1px 1px 2px #b058ee;
 
