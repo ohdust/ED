@@ -33,7 +33,6 @@ export class ChatroomService {
 
   constructor(private http: HttpClient, public logUser: AuthorizationService) { }
 
-  //send data to the server
   public sendMessage(message:string){
       const messageUid = uuid();
       JSON.stringify(message);
@@ -78,15 +77,13 @@ export class ChatroomService {
       };
       return this.http.post<IRooms>(this.chatUrl, data, httpOptions).pipe();
   }
-
-  // join you to a room after click on the room
+  
   joinTheRoom(roomname:string, roomId:string){
       this.socket.emit('join-room', {
           name: roomname, roomId: JSON.stringify(roomId), login: this.logUser.user
       });
   }
-
-  //Get new Messages use socket.io
+ 
   public getNewMessage(){
       this.socket.on('message', (message) =>{
           this.message$.next(message);
@@ -94,7 +91,6 @@ export class ChatroomService {
       return this.message$;
   }
 
-  //delete room by id
   deleteRoomById(roomId:string):Observable<string>{
       const token = localStorage.getItem("token");
       const httpOptions = {
@@ -108,7 +104,6 @@ export class ChatroomService {
           this.chatUrl +`/${roomId}`,httpOptions);
   }
 
-  //delete message by id
   deleteMessageById(messageId:string):Observable<string>{
       const token = localStorage.getItem("token");
       const httpOptions = {
@@ -122,7 +117,6 @@ export class ChatroomService {
           this.chatUrl + '/messages/' + `${messageId}`, httpOptions);
   }
 
-  //get messages count
   getMessagesCount():Observable<string[]>{
       const token = localStorage.getItem("token");
       const httpOptions = {

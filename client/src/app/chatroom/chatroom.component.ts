@@ -13,19 +13,16 @@ import { IMessage, IUserData, IRooms } from './message.interface';
     templateUrl: './chatroom.component.html',
     styleUrls: ['./chatroom.component.scss'],
     animations: [
-      // the fade-in/fade-out animation.
+
       trigger('simpleFadeAnimation', [
 
-        // the "in" style determines the "resting" state of the element when it is visible.
         state('in', style({opacity: 1})),
 
-        // fade in when created. this could also be written as transition('void => *')
         transition(':enter', [
           style({opacity: 0}),
           animate(200)
         ]),
 
-        // fade out when destroyed. this could also be written as transition('void => *')
         transition(':leave',
             animate(400, style({opacity: 0})))
       ])
@@ -36,6 +33,8 @@ export class ChatroomComponent implements OnInit {
 
   rooms:IRooms[] = [];
   roomName:string = '' ;
+  showCloseConfirmButtons = false;
+  showDeleteConfirmButtons = false;
   currentRoomName = "";
   error = false;
   closeRoomConfirm = false;
@@ -65,10 +64,8 @@ export class ChatroomComponent implements OnInit {
   ngOnInit(): void {
       this.userData.userid = this.authService.userId;
       this.userData.user = localStorage.getItem('login');
-       //need a fix because don't render lock button
       this.getAllRooms();
 
-      //this string create stream
       this.chatservice.getNewMessage().subscribe(
           (message) => {
               if(!message) return;
@@ -130,14 +127,18 @@ export class ChatroomComponent implements OnInit {
   }
 
   deleteRoom(roomId:string){
-      if(confirm("Are you sure?")){
-          if(this.preloader.isLoading === false){
-              this.preloader.isLoading = true;
-              this.chatservice.deleteRoomById(roomId).subscribe();
-          }
-          this.rooms = this.rooms.filter((room) => room.room_id !== roomId);
-          this.preloader.isLoading = false;
+      
+      if(this.preloader.isLoading === false){
+          this.preloader.isLoading = true;
+          this.chatservice.deleteRoomById(roomId).subscribe(
+              ()=> {
+                  this.showDeleteConfirmButtons = false;
+              }
+          );
       }
+      this.rooms = this.rooms.filter((room) => room.room_id !== roomId);
+      this.preloader.isLoading = false;
+      
   }
 
   deleteMessage(messageId:string){
@@ -155,8 +156,9 @@ export class ChatroomComponent implements OnInit {
           this.preloader.isLoading = true;
           this.chatservice.closeRoomById(roomId).subscribe(
               ()=> {
-                  this.preloader.isLoading === false;
                   this.rooms = this.rooms.filter((room) => room.room_id !== roomId);
+                  this.showCloseConfirmButtons = false;
+                  this.preloader.isLoading === false;
               }
           );
       }

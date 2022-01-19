@@ -346,8 +346,6 @@ $size: 25px;
       padding: 20px;
       margin: auto;
       width: 42%;
-      animation-name: animatetop;
-      animation-duration: 0.4s;
 
       .title{
         font-weight: bold;
@@ -390,6 +388,63 @@ $size: 25px;
 
       &:hover {
         cursor: pointer;
+      }
+    }
+  }
+
+  .modal-close-buttons{
+    position: fixed;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    // background-color: rgb(0, 0, 0);
+    // background-color: rgba(0, 0, 0, 0.5);
+    
+    .close-buttons{
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 20%;
+      height: 18%;
+      box-shadow: 1px 7.5px 20px grey;
+
+      .title{
+        font-weight: bold;
+        font-size: 22px;
+      }
+
+      .cancel-button{
+        border: none;
+        background-color: #fefefe;
+        box-shadow: 1px 0.5px 5px grey;
+        padding: 6px;
+        margin: 9px;
+
+        font-weight: bold;
+        font-size: 18px;
+
+        &:hover{
+          cursor: pointer;
+        }
+      }
+
+      .confirm-button{
+        background-color:brown;
+        border: none;
+        box-shadow: 1px 0.5px 5px grey;
+        padding: 6px;
+        margin: 9px;
+        color: cornsilk;
+
+        font-weight: bold;
+        font-size: 18px;
+
+        &:hover{
+          cursor: pointer;
+        }
       }
     }
   }

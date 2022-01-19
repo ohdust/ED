@@ -40,8 +40,23 @@
         <div class="current-room-name">{{currentRoomName}}</div>
         <div class="room-buttons">
           <button *ngIf="this.activeRoom.status === false && activeRoom.createrId == userData.userid && currentRoomName !== ''"
-          (click)="closeRoom(this.activeRoom.roomId , this.activeRoom.createrId)" class="close-btn">close</button>
-          <button *ngIf="this.activeRoom.createrId == userData.userid && currentRoomName !== ''" (click)="deleteRoom(this.activeRoom.roomId)" class="delete-btn">delete</button>
+           class="close-btn" (click)="showCloseConfirmButtons = true">close</button>
+          <div class="modal-close-buttons" *ngIf="showCloseConfirmButtons === true">
+            <div class="close-buttons">
+              <div class="title">Close the {{currentRoomName}}?</div>
+              <button (click)="showCloseConfirmButtons = false" class="cancel-button">Cancel</button>
+              <button  (click)="closeRoom(this.activeRoom.roomId , this.activeRoom.createrId)" class="confirm-button">Close room</button>
+            </div>
+          </div>
+          <button *ngIf="this.activeRoom.createrId == userData.userid && currentRoomName !== ''" 
+          (click)="showDeleteConfirmButtons = true" class="delete-btn">delete</button>
+          <div class="modal-close-buttons" *ngIf="showDeleteConfirmButtons === true">
+            <div class="close-buttons">
+              <div class="title">Dete the {{currentRoomName}}?</div>
+              <button (click)=" showDeleteConfirmButtons = false" class="cancel-button">Cancel</button>
+              <button *ngIf="showDeleteConfirmButtons === true" (click)="deleteRoom(this.activeRoom.roomId)" class="confirm-button">Delete room</button>
+            </div>
+          </div>
         </div>
 
       </div>
