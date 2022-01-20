@@ -39,7 +39,6 @@ export class ChatroomService {
       this.socket.emit('message', this.activeRoom.roomId.toString() , {messageid: messageUid, userId: this.logUser.userId, login: this.logUser.user, message, date: this.date});
   }
 
-  // get rooms
   getRooms():Observable<IRooms[]>{
       const token = localStorage.getItem("token");
       const httpOptions = {
@@ -53,7 +52,6 @@ export class ChatroomService {
           .pipe();
   }
 
-  //take messages from concrete room
   getMessagesByRoomId(roomId:string):Observable<IMessage[]>{
       const httpOptions = {
           headers: new HttpHeaders({
@@ -65,7 +63,6 @@ export class ChatroomService {
       return this.http.get<IMessage[]>(this.chatUrl + `/${roomId}`, httpOptions).pipe();
   }
 
-  //create new chat room
   createRoom(roomName:string):Observable<IRooms>{
       const data = {name: roomName,user_id: this.logUser.userId};
       const httpOptions = {
@@ -77,13 +74,13 @@ export class ChatroomService {
       };
       return this.http.post<IRooms>(this.chatUrl, data, httpOptions).pipe();
   }
-  
+
   joinTheRoom(roomname:string, roomId:string){
       this.socket.emit('join-room', {
           name: roomname, roomId: JSON.stringify(roomId), login: this.logUser.user
       });
   }
- 
+
   public getNewMessage(){
       this.socket.on('message', (message) =>{
           this.message$.next(message);

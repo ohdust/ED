@@ -1,4 +1,3 @@
-//const { addMessage } = require('../controller/chat.controller');
 const express = require('express'),
     app = express(),
     http = require('http'),
