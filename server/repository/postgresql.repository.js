@@ -77,6 +77,25 @@ const deleteMessage = async (messId) => {
     return response;
 };
 
+const userRegistration = async (login, password) => {
+    const response = await db.query(`
+        INSERT INTO chatuser (login, password)
+        VALUES($1, $2)
+        RETURNING login;`, [login, password]);
+    if(response.rows[0].length === 0) throw new Error('user not created'); 
+    return response.rows[0];
+};
+
+const signIn = async (login, password) => {
+    const response = await db.query(`
+    SELECT login, user_id
+    FROM chatuser
+    WHERE login = $1 AND password = $2;`, [login, password]);
+
+    if(response.rows.length === 0) throw new Error('user not found');
+    return response.rows[0];
+};
+
 module.exports = {
     getAllRooms,
     createRoom,
@@ -84,5 +103,8 @@ module.exports = {
     deleteRoom,
     getMessages,
     createMessage,
-    deleteMessage
+    deleteMessage,
+    userRegistration,
+    signIn,
+
 };
