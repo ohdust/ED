@@ -1,6 +1,6 @@
 require('dotenv').config();
 const cors = require('cors');
-const { app, express, server } = require('../server/services/server.services');
+const { app, express, server } = require('../backend/services/server.services');
 
 const PORT = process.env.PORT;
 const router = require('./routes/router.module');

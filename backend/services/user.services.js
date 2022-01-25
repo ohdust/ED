@@ -5,7 +5,7 @@ const createUser = async (repository, login, password) => {
 };
 
 const postAuthData = async (repository, login, password) => {
-    const response = repository.signIn(login, password);
+    const response = await repository.signIn(login, password);
     
     const token = generateAccessToken({
         login: response.login,
