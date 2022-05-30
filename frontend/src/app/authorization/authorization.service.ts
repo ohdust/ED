@@ -1,5 +1,5 @@
-import { environment } from './../../environments/environment';
-import { IUserData } from './../chatroom/message.interface';
+import { environment } from '../../environments/environment';
+import { IUserData } from '../chatroom/message.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -49,7 +49,9 @@ export class AuthorizationService {
     login(user:IUser):Observable<void>{
         const httpOptions = {
             headers: new HttpHeaders({
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "POST"
             }),
             withCredentials: true
         };

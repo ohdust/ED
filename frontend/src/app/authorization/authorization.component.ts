@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { PreloaderComponent } from './../preloader/preloader.component';
+import { PreloaderComponent } from '../preloader/preloader.component';
 import { AuthorizationService } from './authorization.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -30,7 +30,7 @@ export class AuthorizationComponent implements OnInit {
     }
 
     doAuth(){
-        if(this.requestStatus.isLoading === false){
+        if(!this.requestStatus.isLoading){
             this.requestStatus.isLoading = true;
             this.authorization.login(this.authForm.value)
             .subscribe(
@@ -45,7 +45,7 @@ export class AuthorizationComponent implements OnInit {
     }
 
     auth(){
-        if(this.requestStatus.isLoading === false){
+        if(!this.requestStatus.isLoading){
             this.requestStatus.isLoading = true;
             this.authorization.auth()
             .subscribe(

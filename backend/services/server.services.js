@@ -2,16 +2,18 @@ const express = require('express'),
     app = express(),
     http = require('http'),
     server = http.createServer(app),
-    { Server } = require('socket.io'),  
+    { Server } = require('socket.io'),
     io = new Server(server, {
+        allowEIO3: true,
         cors: {
-            origin: process.env.CORS,
-            methods: ["GET", "POST"]
+            origin: '*',
+            methods: ["GET", "POST"],
+            credentials: true
         }
     });
 const { addMessage } = require('../controller/chat.controller');
 const validator = require('../middleware/dataValidator');
-   
+
 io.on('connection', (socket) => {
     console.log(`client connected`);
     
